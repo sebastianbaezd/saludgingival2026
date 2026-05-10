@@ -1,0 +1,14 @@
+<svg width="720" height="520" viewBox="0 0 720 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="720" height="520" rx="32" fill="#FFF9EF"/>
+<circle cx="360" cy="208" r="112" fill="#FBE9C2"/>
+<circle cx="360" cy="208" r="78" fill="#F6C96B"/>
+<path d="M330 206C330 190.536 342.536 178 358 178H362C377.464 178 390 190.536 390 206V264H330V206Z" fill="#C77900"/>
+<path d="M304 270H416C424.837 270 432 277.163 432 286V298C432 315.673 417.673 330 400 330H320C302.327 330 288 315.673 288 298V286C288 277.163 295.163 270 304 270Z" fill="#FFF4D8" stroke="#C77900" stroke-width="10"/>
+<path d="M314 286H406" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
+<path d="M327 304H393" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
+<path d="M254 127L278 150" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
+<path d="M464 127L440 150" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
+<path d="M211 394C256 354 306 337 360 337C414 337 464 354 509 394" stroke="#C77900" stroke-width="16" stroke-linecap="round"/>
+<circle cx="360" cy="103" r="15" fill="#F6C96B"/>
+<text x="360" y="448" text-anchor="middle" fill="#A35F00" font-family="Arial, sans-serif" font-size="34" font-weight="700">Conviene evaluarse pronto</text>
+</svg>

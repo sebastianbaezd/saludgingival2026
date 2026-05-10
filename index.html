@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test de Salud Gingival</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#112033;
+      --muted:#58708a;
+      --line:#dce6f0;
+      --primary:#0a4f87;
+      --primary-2:#0f76b8;
+      --primary-soft:#e8f5fd;
+      --shadow:0 10px 28px rgba(14,30,62,.08);
+      --success:#177245;
+      --warn:#c77900;
+      --danger:#c62828;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#f3f7fb 0%, #f8fafc 100%);
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height:1.45;
+    }
+    .container{max-width:960px;margin:0 auto;padding:22px 16px 48px}
+    .hero,.sectionCard,.footerCard{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+    }
+    .hero{padding:24px;display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+    h1{font-size:32px;line-height:1.05;margin:12px 0 10px}
+    .lead{color:var(--muted);font-size:16px;max-width:58ch}
+    .privacy{
+      margin-top:14px;
+      background:#f7fbff;
+      border:1px solid #d7ecfb;
+      border-radius:18px;
+      padding:14px;
+      font-size:14px;
+      color:#31516c;
+    }
+    .progressBox{background:#f4f7fb;border:1px solid var(--line);border-radius:22px;padding:16px}
+    .progressTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-end}
+    .progressTop strong{font-size:18px}
+    .muted{color:var(--muted)}
+    .bar{height:12px;background:#d9e3ee;border-radius:999px;overflow:hidden;margin-top:12px}
+    .barFill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s ease}
+    .sectionCard{padding:22px;margin-top:16px}
+    .sectionTitle{margin:0 0 6px;font-size:22px;line-height:1.1}
+    .sectionDesc{margin:0 0 16px;color:var(--muted);font-size:14px}
+    .question{border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;background:linear-gradient(180deg,#fff 0%, #fbfdff 100%)}
+    .qhead{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+    .num{width:32px;height:32px;min-width:32px;border-radius:999px;background:#10253d;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+    .qtext{font-size:17px;font-weight:800;line-height:1.3}
+    .options{display:grid;grid-template-columns:1fr;gap:10px}
+    .opt{
+      width:100%;text-align:left;border:1px solid #d8e3ee;border-radius:18px;padding:14px 14px;background:#fff;color:#294154;font-size:15px;font-weight:700;cursor:pointer;transition:.18s ease;
+    }
+    .opt:hover{background:#f7fbff;border-color:#b9cddd;transform:translateY(-1px)}
+    .opt.selected{background:#eaf5fe;border-color:#3b82f6;outline:2px solid #bfdbfe;color:#0b4a85}
+    .footerCard{padding:22px;margin-top:18px}
+    .summary{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
+    .scorePreview{background:#f4f7fb;border:1px solid var(--line);border-radius:20px;padding:12px 16px;min-width:160px}
+    .scorePreview .value{font-size:28px;font-weight:900;line-height:1}
+    .warning{margin-top:14px;background:#fff9e8;border:1px solid #f6df95;border-radius:18px;padding:14px;color:#946200;font-size:14px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    button.primary,button.secondary{border:none;border-radius:18px;padding:15px 18px;font-weight:800;font-size:16px;cursor:pointer;transition:.18s ease}
+    button.primary{background:linear-gradient(90deg,var(--primary),var(--primary-2));color:#fff}
+    button.primary:hover:enabled{transform:translateY(-1px);box-shadow:0 8px 20px rgba(15,118,184,.24)}
+    button.primary:disabled{background:#c9d5e2;color:#f8fafc;cursor:not-allowed;box-shadow:none}
+    button.secondary{background:#fff;border:1px solid #cfdceb;color:#35516c}
+    button.secondary:hover{background:#f8fbff}
+    .footnote{margin-top:12px;font-size:13px;color:var(--muted)}
+    @media (min-width:780px){
+      .hero{grid-template-columns:1.5fr .75fr;align-items:start}
+      .options{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div>
+        <span class="pill">Semana de la Salud de las Encías 2026</span>
+        <h1>Test de Salud Gingival</h1>
+        <p class="lead">Responda de forma personal y anónima. El sistema calcula el puntaje automáticamente y luego le mostrará su resultado en una pantalla separada.</p>
+        <div class="privacy">Este test es anónimo y orientativo. No reemplaza una evaluación odontológica profesional.</div>
+      </div>
+      <div class="progressBox">
+        <div class="progressTop">
+          <div>
+            <div class="muted">Progreso</div>
+            <strong><span id="answeredCount">0</span> de <span id="totalCount">17</span></strong>
+          </div>
+          <div class="muted"><span id="progressPercent">0</span>%</div>
+        </div>
+        <div class="bar"><div id="barFill" class="barFill"></div></div>
+      </div>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <section class="footerCard">
+      <div class="summary">
+        <div>
+          <h2 class="sectionTitle">Resumen automático</h2>
+          <p class="sectionDesc">El puntaje se calcula en segundo plano y las respuestas quedan bloqueadas al pasar a la pantalla de resultado.</p>
+        </div>
+        <div class="scorePreview">
+          <div class="muted">Puntaje acumulado actual</div>
+          <div class="value" id="scorePreview">0</div>
+        </div>
+      </div>
+      <div id="warningBox" class="warning">Faltan 17 preguntas por responder.</div>
+      <div class="actions">
+        <button id="submitBtn" class="primary" type="submit" form="quizForm" disabled>Ver mi resultado</button>
+        <button id="resetBtn" class="secondary" type="button">Reiniciar test</button>
+      </div>
+      <div class="footnote">Las preguntas 9 y 10 fueron configuradas exactamente según la versión corregida que usted indicó para este proyecto.</div>
+    </section>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        section: 'Primero queremos conocerle mejor',
+        description: 'Complete estos datos generales antes de pasar a los factores bucales y sistémicos.',
+        items: [
+          { id: 1, text: '¿Es usted hombre o mujer?', options: [ ['Mujer',1], ['Hombre',2] ] },
+          { id: 2, text: '¿Qué edad tiene?', options: [ ['Menos de 40',1], ['Entre 40 y 65',2], ['Mayor de 65',3] ] },
+          { id: 3, text: '¿A qué grupo étnico pertenece?', options: [ ['Pueblos originarios',0], ['Raza negra',1], ['Otro',0] ] },
+          { id: 4, text: '¿Cuál es su nivel socioeconómico?', options: [ ['Alto',0], ['Medio',1], ['Bajo',2] ] },
+        ]
+      },
+      {
+        section: '¿Nota problemas en sus dientes o encías?',
+        description: 'Piense en sangrado, retracción gingival, movilidad dentaria o pérdida de dientes.',
+        items: [
+          { id: 5, text: '¿Le sangran con frecuencia las encías?', options: [ ['No',0], ['No lo sé',1], ['Sí',3] ] },
+          { id: 6, text: '¿Se han retraído sus encías o sus dientes parecen más largos?', options: [ ['No',0], ['No lo sé',1], ['Sí',3] ] },
+          { id: 7, text: '¿Se le mueven los dientes?', options: [ ['No',0], ['No lo sé',1], ['Sí',3] ] },
+          { id: 8, text: '¿Ha perdido últimamente algún diente?', options: [ ['No',0], ['No lo sé',1], ['Sí',3] ] },
+        ]
+      },
+      {
+        section: '¿Se cuida y revisa la boca?',
+        description: 'Aquí se valoran hábitos de consulta y cepillado.',
+        items: [
+          { id: 9, text: '¿Ha visitado al dentista en los dos últimos años?', options: [ ['Sí',0], ['No lo sé',1] ] },
+          { id: 10, text: '¿Se cepilla los dientes regularmente?', options: [ ['3 veces al día',0], ['2 veces al día',1], ['1 vez al día',2], ['De vez en cuando',3] ] },
+        ]
+      },
+      {
+        section: 'Sus hábitos de vida ¿son saludables?',
+        description: 'Se consideran factores que aumentan el riesgo periodontal y sistémico.',
+        items: [
+          { id: 11, text: '¿Tiene problemas de sobrepeso?', options: [ ['No',0], ['Algo',1], ['Sí',2] ] },
+          { id: 12, text: '¿Fuma?', options: [ ['No',0], ['Soy exfumador',1], ['Fumo menos de 10 cigarros por día',3], ['Fumo más de 10 cigarros por día',6] ] },
+          { id: 13, text: '¿Tiene mucho estrés?', options: [ ['No',0], ['Algo de estrés',1], ['Mucho estrés',2], ['Muchísimo estrés',3] ] },
+          { id: 14, text: '¿Bebe más de dos vasos de alcohol o copas de vino al día?', options: [ ['No',0], ['Sí',1] ] },
+        ]
+      },
+      {
+        section: 'Antecedentes familiares',
+        description: 'Se consulta por antecedentes familiares periodontales.',
+        items: [
+          { id: 15, text: '¿Sus padres o hermanos han tenido enfermedades de las encías?', options: [ ['No',0], ['No lo sé',1], ['Sí',3] ] },
+        ]
+      },
+      {
+        section: 'Respecto a la salud general',
+        description: 'Se incluyen condiciones sistémicas relacionadas con el riesgo periodontal.',
+        items: [
+          { id: 16, text: '¿Tiene diabetes?', options: [ ['No',0], ['No lo sé',1], ['Sí, bien controlada',2], ['Sí, y a veces se descontrola',6] ] },
+          { id: 17, text: '¿Tiene osteoporosis?', options: [ ['No',0], ['No lo sé',1], ['Sí',2] ] },
+        ]
+      },
+    ];
+
+    const form = document.getElementById('quizForm');
+    const answeredCount = document.getElementById('answeredCount');
+    const totalCount = document.getElementById('totalCount');
+    const progressPercent = document.getElementById('progressPercent');
+    const barFill = document.getElementById('barFill');
+    const warningBox = document.getElementById('warningBox');
+    const scorePreview = document.getElementById('scorePreview');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const answers = {};
+    const totalQuestions = questions.reduce((sum, section) => sum + section.items.length, 0);
+    totalCount.textContent = String(totalQuestions);
+
+    function renderForm(){
+      questions.forEach(section => {
+        const wrap = document.createElement('section');
+        wrap.className = 'sectionCard';
+
+        const title = document.createElement('h2');
+        title.className = 'sectionTitle';
+        title.textContent = section.section;
+
+        const desc = document.createElement('p');
+        desc.className = 'sectionDesc';
+        desc.textContent = section.description;
+
+        wrap.appendChild(title);
+        wrap.appendChild(desc);
+
+        section.items.forEach(item => {
+          const q = document.createElement('div');
+          q.className = 'question';
+
+          const head = document.createElement('div');
+          head.className = 'qhead';
+
+          const num = document.createElement('div');
+          num.className = 'num';
+          num.textContent = item.id;
+
+          const qtext = document.createElement('div');
+          qtext.className = 'qtext';
+          qtext.textContent = item.text;
+
+          head.appendChild(num);
+          head.appendChild(qtext);
+          q.appendChild(head);
+
+          const opts = document.createElement('div');
+          opts.className = 'options';
+
+          item.options.forEach(([label, score]) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'opt';
+            btn.textContent = label;
+            btn.dataset.questionId = item.id;
+            btn.dataset.label = label;
+            btn.dataset.score = score;
+            btn.addEventListener('click', () => selectOption(item.id, label, score, opts, btn));
+            opts.appendChild(btn);
+          });
+
+          q.appendChild(opts);
+          wrap.appendChild(q);
+        });
+
+        form.appendChild(wrap);
+      });
+    }
+
+    function selectOption(questionId, label, score, opts, currentButton){
+      answers[questionId] = { label, score };
+      Array.from(opts.children).forEach(child => child.classList.remove('selected'));
+      currentButton.classList.add('selected');
+      updateProgress();
+    }
+
+    function getScore(){
+      return Object.values(answers).reduce((sum, item) => sum + item.score, 0);
+    }
+
+    function getRisk(score){
+      if(score < 12){
+        return {
+          code:'muy-bajo',
+          title:'Riesgo muy bajo',
+          image:'assets/risk-low.svg',
+          recommendations:[
+            'Mantenga sus controles odontológicos periódicos.',
+            'Siga cepillándose correctamente y refuerce la limpieza interdental.',
+            'Si nota sangrado, retracción, movilidad o mal aliento persistente, consulte oportunamente.'
+          ]
+        };
+      }
+      if(score <= 23){
+        return {
+          code:'moderado',
+          title:'Riesgo moderado',
+          image:'assets/risk-moderate.svg',
+          recommendations:[
+            'Solicite un control odontológico preventivo para evaluar sus encías.',
+            'Refuerce la higiene oral diaria y el control de placa bacteriana.',
+            'Si fuma, tiene diabetes o sangrado frecuente, no postergue su evaluación.'
+          ]
+        };
+      }
+      return {
+        code:'alto',
+        title:'Riesgo alto',
+        image:'assets/risk-high.svg',
+        recommendations:[
+          'Solicite evaluación odontológica lo antes posible.',
+          'No normalice sangrado, retracción gingival, movilidad dentaria ni pérdida dentaria reciente.',
+          'Si además fuma o tiene diabetes, el control profesional cobra aún mayor importancia.'
+        ]
+      };
+    }
+
+    function updateProgress(){
+      const answered = Object.keys(answers).length;
+      const percent = Math.round((answered / totalQuestions) * 100);
+      const missing = totalQuestions - answered;
+      answeredCount.textContent = String(answered);
+      progressPercent.textContent = String(percent);
+      barFill.style.width = percent + '%';
+      scorePreview.textContent = String(getScore());
+      submitBtn.disabled = answered !== totalQuestions;
+      warningBox.textContent = missing > 0
+        ? `Faltan ${missing} pregunta(s) por responder.`
+        : 'Formulario completo. Ya puede pasar a la pantalla de resultado.';
+      warningBox.style.background = missing > 0 ? '#fff9e8' : '#eefbf2';
+      warningBox.style.borderColor = missing > 0 ? '#f6df95' : '#b4e3c0';
+      warningBox.style.color = missing > 0 ? '#946200' : '#166534';
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if(Object.keys(answers).length !== totalQuestions) return;
+      const score = getScore();
+      const risk = getRisk(score);
+      const payload = {
+        timestamp: Date.now(),
+        score,
+        risk,
+        answers
+      };
+      localStorage.setItem('gingival-test-result', JSON.stringify(payload));
+      window.location.href = 'resultado.html';
+    });
+
+    resetBtn.addEventListener('click', () => {
+      Object.keys(answers).forEach(key => delete answers[key]);
+      document.querySelectorAll('.opt.selected').forEach(el => el.classList.remove('selected'));
+      localStorage.removeItem('gingival-test-result');
+      updateProgress();
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    renderForm();
+    updateProgress();
+  </script>
+</body>
+</html>

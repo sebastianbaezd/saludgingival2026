@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultado del Test de Salud Gingival</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#112033;
+      --muted:#58708a;
+      --line:#dce6f0;
+      --shadow:0 10px 28px rgba(14,30,62,.08);
+      --success:#177245;
+      --success-bg:#eefaf3;
+      --warn:#c77900;
+      --warn-bg:#fff9eb;
+      --danger:#c62828;
+      --danger-bg:#fff1f1;
+      --primary:#0a4f87;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#f3f7fb 0%, #f8fafc 100%);
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height:1.45;
+    }
+    .container{max-width:960px;margin:0 auto;padding:22px 16px 48px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
+    .hero{padding:22px;margin-bottom:18px}
+    .pill{display:inline-flex;padding:7px 12px;border-radius:999px;background:#e8f5fd;color:var(--primary);font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+    h1{margin:12px 0 8px;font-size:32px;line-height:1.05}
+    .lead{color:var(--muted);font-size:16px}
+    .resultGrid{display:grid;grid-template-columns:1fr;gap:18px}
+    .resultBox,.recommendBox,.infoBox{padding:22px}
+    .resultBox{display:grid;grid-template-columns:1fr;gap:18px}
+    .resultTop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center}
+    .score{font-size:56px;line-height:1;font-weight:900}
+    .label{display:inline-flex;border-radius:999px;padding:10px 15px;color:#fff;font-weight:800}
+    .illustrationWrap{display:flex;justify-content:center;align-items:center;background:#fff;border-radius:24px;border:1px solid rgba(255,255,255,.8);padding:12px;min-height:220px}
+    .illustrationWrap img{max-width:100%;height:auto;max-height:240px;display:block}
+    .split{display:grid;grid-template-columns:1fr;gap:18px}
+    .blockTitle{margin:0 0 10px;font-size:22px}
+    .subtle{color:var(--muted)}
+    .recommendations{display:grid;gap:12px}
+    .recItem{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px}
+    .recItem img{width:28px;height:28px;margin-top:2px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    button{border:none;border-radius:18px;padding:15px 18px;font-weight:800;font-size:16px;cursor:pointer}
+    .primary{background:linear-gradient(90deg,#0a4f87,#0f76b8);color:#fff}
+    .secondary{background:#fff;border:1px solid #cfdceb;color:#35516c}
+    .theme-low .resultBox{background:var(--success-bg);border-color:#bde2ca}
+    .theme-low .label{background:var(--success)}
+    .theme-moderate .resultBox{background:var(--warn-bg);border-color:#f2d38a}
+    .theme-moderate .label{background:var(--warn)}
+    .theme-high .resultBox{background:var(--danger-bg);border-color:#f1c1c1}
+    .theme-high .label{background:var(--danger)}
+    @media (min-width:820px){
+      .resultGrid{grid-template-columns:1.12fr .88fr}
+      .resultBox{grid-column:1 / span 2;grid-template-columns:1.1fr .9fr}
+      .split{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="card hero">
+      <span class="pill">Resultado individual</span>
+      <h1>Su resultado está listo</h1>
+      <p class="lead">Las respuestas quedaron cerradas al cambiar de pantalla. Puede reiniciar el test al final si otra persona desea responderlo desde el mismo dispositivo.</p>
+    </section>
+
+    <section id="resultTheme" class="resultGrid theme-low">
+      <section class="card resultBox">
+        <div>
+          <div class="resultTop">
+            <div>
+              <div class="subtle">Puntaje total</div>
+              <div id="score" class="score">0</div>
+            </div>
+            <div id="riskLabel" class="label">Riesgo muy bajo</div>
+          </div>
+          <p id="mainText" class="lead" style="margin-top:16px"></p>
+          <div class="actions">
+            <button id="backBtn" class="secondary" type="button">Volver al inicio</button>
+            <button id="restartBtn" class="primary" type="button">Reiniciar test</button>
+          </div>
+        </div>
+        <div class="illustrationWrap">
+          <img id="riskImage" src="assets/risk-low.svg" alt="Ilustración de nivel de riesgo" />
+        </div>
+      </section>
+
+      <section class="card recommendBox">
+        <h2 class="blockTitle">Recomendaciones</h2>
+        <div id="recommendations" class="recommendations"></div>
+      </section>
+
+      <section class="card infoBox">
+        <h2 class="blockTitle">Importante</h2>
+        <div class="subtle">
+          Este test es orientativo y anónimo. No reemplaza una evaluación odontológica profesional. Si presenta sangrado, retracción gingival, movilidad dentaria o pérdida dentaria reciente, consulte.
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('gingival-test-result') || 'null');
+    if(!data){
+      window.location.href = 'index.html';
+    }
+
+    const scoreEl = document.getElementById('score');
+    const riskLabel = document.getElementById('riskLabel');
+    const riskImage = document.getElementById('riskImage');
+    const mainText = document.getElementById('mainText');
+    const recommendations = document.getElementById('recommendations');
+    const resultTheme = document.getElementById('resultTheme');
+    const backBtn = document.getElementById('backBtn');
+    const restartBtn = document.getElementById('restartBtn');
+
+    function getPresentation(score){
+      if(score < 12){
+        return {
+          theme:'theme-low',
+          label:'Riesgo muy bajo',
+          text:'Según este test, su riesgo periodontal es muy bajo. Mantenga sus controles odontológicos periódicos y sus hábitos de higiene oral.',
+          image:'assets/risk-low.svg'
+        };
+      }
+      if(score <= 23){
+        return {
+          theme:'theme-moderate',
+          label:'Riesgo moderado',
+          text:'Según este test, usted presenta factores o signos que justifican una evaluación odontológica preventiva y una revisión de sus encías.',
+          image:'assets/risk-moderate.svg'
+        };
+      }
+      return {
+        theme:'theme-high',
+        label:'Riesgo alto',
+        text:'Es probable que sufra o vaya a sufrir periodontitis según la escala orientativa del test. Se recomienda evaluación odontológica.',
+        image:'assets/risk-high.svg'
+      };
+    }
+
+    const presentation = getPresentation(data.score);
+    scoreEl.textContent = data.score;
+    riskLabel.textContent = presentation.label;
+    mainText.textContent = presentation.text;
+    riskImage.src = presentation.image;
+    resultTheme.className = 'resultGrid ' + presentation.theme;
+
+    (data.risk.recommendations || []).forEach(text => {
+      const item = document.createElement('div');
+      item.className = 'recItem';
+      item.innerHTML = `<img src="assets/icon-recommendation.svg" alt="Icono de recomendación" /><div>${text}</div>`;
+      recommendations.appendChild(item);
+    });
+
+    backBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    restartBtn.addEventListener('click', () => {
+      localStorage.removeItem('gingival-test-result');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
