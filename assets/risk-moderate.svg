@@ -1,14 +1,20 @@
-<svg width="720" height="520" viewBox="0 0 720 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="720" height="520" rx="32" fill="#FFF9EF"/>
-<circle cx="360" cy="208" r="112" fill="#FBE9C2"/>
-<circle cx="360" cy="208" r="78" fill="#F6C96B"/>
-<path d="M330 206C330 190.536 342.536 178 358 178H362C377.464 178 390 190.536 390 206V264H330V206Z" fill="#C77900"/>
-<path d="M304 270H416C424.837 270 432 277.163 432 286V298C432 315.673 417.673 330 400 330H320C302.327 330 288 315.673 288 298V286C288 277.163 295.163 270 304 270Z" fill="#FFF4D8" stroke="#C77900" stroke-width="10"/>
-<path d="M314 286H406" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
-<path d="M327 304H393" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
-<path d="M254 127L278 150" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
-<path d="M464 127L440 150" stroke="#C77900" stroke-width="10" stroke-linecap="round"/>
-<path d="M211 394C256 354 306 337 360 337C414 337 464 354 509 394" stroke="#C77900" stroke-width="16" stroke-linecap="round"/>
-<circle cx="360" cy="103" r="15" fill="#F6C96B"/>
-<text x="360" y="448" text-anchor="middle" fill="#A35F00" font-family="Arial, sans-serif" font-size="34" font-weight="700">Conviene evaluarse pronto</text>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 720 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <path d="M720,32L720,488C720,505.661 705.661,520 688,520L32,520C14.339,520 0,505.661 0,488L0,32C0,14.339 14.339,0 32,0L688,0C705.661,0 720,14.339 720,32Z" style="fill:rgb(255,249,239);"/>
+    <circle cx="360" cy="208" r="112" style="fill:rgb(251,233,194);"/>
+    <circle cx="360" cy="208" r="78" style="fill:rgb(246,201,107);"/>
+    <path d="M330,206C330,190.536 342.536,178 358,178L362,178C377.464,178 390,190.536 390,206L390,264L330,264L330,206Z" style="fill:rgb(199,121,0);fill-rule:nonzero;"/>
+    <path d="M304,270L416,270C424.837,270 432,277.163 432,286L432,298C432,315.673 417.673,330 400,330L320,330C302.327,330 288,315.673 288,298L288,286C288,277.163 295.163,270 304,270Z" style="fill:rgb(255,244,216);fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:10px;"/>
+    <path d="M314,286L406,286" style="fill:none;fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:10px;stroke-linecap:round;"/>
+    <path d="M327,304L393,304" style="fill:none;fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:10px;stroke-linecap:round;"/>
+    <path d="M254,127L278,150" style="fill:none;fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:10px;stroke-linecap:round;"/>
+    <path d="M464,127L440,150" style="fill:none;fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:10px;stroke-linecap:round;"/>
+    <path d="M211,394C256,354 306,337 360,337C414,337 464,354 509,394" style="fill:none;fill-rule:nonzero;stroke:rgb(199,121,0);stroke-width:16px;stroke-linecap:round;"/>
+    <circle cx="360" cy="103" r="15" style="fill:rgb(246,201,107);"/>
+    <g transform="matrix(1,0,0,1,360,448)">
+        <g transform="matrix(34,0,0,34,304.224,0)">
+        </g>
+        <text x="-304.224px" y="0px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:34px;fill:rgb(163,95,0);">Preste atención a los signos de alerta</text>
+    </g>
 </svg>
